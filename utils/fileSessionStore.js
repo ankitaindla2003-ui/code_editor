@@ -3,13 +3,12 @@ const path = require('path');
 
 class FileSessionStore {
     constructor() {
-        // tmp/sessions path
-        this.sessionDir = path.join(process.cwd(), 'tmp', 'sessions');
-
+        // Use Vercel's /tmp directory for local storage
+        this.sessionDir = '/tmp/sessions';
         console.log('Session Directory Path:', this.sessionDir);
 
         try {
-            fs.ensureDirSync(this.sessionDir);
+            fs.ensureDirSync(this.sessionDir); // Ensure the session directory exists
             console.log('tmp/sessions directory ensured.');
         } catch (error) {
             console.error('Error creating tmp/sessions directory:', error);
