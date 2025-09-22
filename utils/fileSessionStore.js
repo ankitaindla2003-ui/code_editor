@@ -172,3 +172,5 @@ class FileSessionStore {
 const fileSessionStore = new FileSessionStore();
 
 module.exports = fileSessionStore;
+
+// fileSessionStore.cleanup(); // Initial cleanup on startup
