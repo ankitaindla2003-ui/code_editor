@@ -2,15 +2,17 @@
   "name": "code_editor_",
   "version": "0.1.0",
   "private": true,
+ 
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node server.js",
+    "dev": "NODE_ENV=development node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "start:pm2": "pm2 start ecosystem.config.js --env production",
+    "start:pm2": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop all",
     "restart": "pm2 restart all",
     "logs": "pm2 logs",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@codemirror/basic-setup": "^0.20.0",
