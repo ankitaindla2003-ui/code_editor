@@ -1,5 +1,5 @@
 // Import shared session store
-const sessionStore = require('../../../../../utils/fileSessionStore');
+const sessionStore = require('../../../../../utils/fileSessionStoreOld');
 
 export async function GET() {
     try {

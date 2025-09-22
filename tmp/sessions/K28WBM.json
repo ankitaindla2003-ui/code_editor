@@ -1,0 +1,14 @@
+{
+  "language": "javascript",
+  "duration": 30,
+  "maxParticipants": 10,
+  "sessionName": "tess",
+  "roomCode": "K28WBM",
+  "createdAt": "2025-09-22T03:04:13.594Z",
+  "participants": {},
+  "comments": [],
+  "code": "// Welcome to Peer Rank Code Review!\n// Start reviewing and commenting on the code below\n\nfunction greetUser(name) {\n    if (!name) {\n        return \"Hello, Guest!\";\n    }\n    return `Hello, ${name}!`;\n}\n\nconsole.log(greetUser(\"World\"));",
+  "status": "waiting",
+  "hostId": null,
+  "editMode": "host-only"
+}

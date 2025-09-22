@@ -4,7 +4,7 @@ const next = require('next');
 const express = require('express');
 const cors = require('cors');
 const CodeExecutor = require('./utils/codeExecutor');
-const sessionStore = require('./utils/fileSessionStore');
+const sessionStore = require('./utils/fileSessionStoreOld');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });

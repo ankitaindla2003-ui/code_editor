@@ -3,19 +3,18 @@ const path = require('path');
 
 class FileSessionStore {
     constructor() {
-        // Vercel /tmp writable 
-        this.sessionDir = path.join('/tmp', 'sessions');
+        // tmp/sessions path
+        this.sessionDir = path.join(process.cwd(), 'tmp', 'sessions');
 
         console.log('Session Directory Path:', this.sessionDir);
 
         try {
             fs.ensureDirSync(this.sessionDir);
-            console.log('/tmp/sessions directory ensured.');
+            console.log('tmp/sessions directory ensured.');
         } catch (error) {
-            console.error('Error creating /tmp/sessions directory:', error);
+            console.error('Error creating tmp/sessions directory:', error);
         }
     }
-
     getSessionPath(roomCode) {
         return path.join(this.sessionDir, `${roomCode}.json`);
     }
@@ -69,6 +68,7 @@ class FileSessionStore {
         return fs.existsSync(filePath);
     }
 
+    // Get all session room codes (for cleanup purposes)
     getAllRoomCodes() {
         try {
             const files = fs.readdirSync(this.sessionDir);
@@ -79,6 +79,7 @@ class FileSessionStore {
         }
     }
 
+    // Get all active sessions (sessions with participants)
     getActiveSessions() {
         try {
             const roomCodes = this.getAllRoomCodes();
@@ -108,16 +109,19 @@ class FileSessionStore {
         }
     }
 
+    // Check if any active session exists
     hasActiveSession() {
         const activeSessions = this.getActiveSessions();
         return activeSessions.length > 0;
     }
 
+    // Get the first active session
     getActiveSession() {
         const activeSessions = this.getActiveSessions();
         return activeSessions.length > 0 ? activeSessions[0] : null;
     }
 
+    // Clean up empty or old sessions
     cleanup() {
         try {
             const roomCodes = this.getAllRoomCodes();
@@ -133,6 +137,7 @@ class FileSessionStore {
                     return;
                 }
 
+                // Check if session is empty and has been empty for too long
                 if (session.isEmpty && session.lastActivity) {
                     const lastActivity = new Date(session.lastActivity);
                     const timeSinceEmpty = now - lastActivity;
@@ -145,6 +150,7 @@ class FileSessionStore {
                         cleaned++;
                     }
                 } else if (!session.participants || Object.keys(session.participants).length === 0) {
+                    // Legacy cleanup for sessions without isEmpty flag
                     this.delete(roomCode);
                     cleaned++;
                 }
@@ -162,7 +168,9 @@ class FileSessionStore {
     }
 }
 
-// Singleton instance
+// Create and export singleton instance
 const fileSessionStore = new FileSessionStore();
 
 module.exports = fileSessionStore;
+
+// fileSessionStore.cleanup(); // Initial cleanup on startup
