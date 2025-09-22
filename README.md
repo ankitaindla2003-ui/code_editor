@@ -238,3 +238,4 @@ npm start
 
 This project is part of a collaborative coding platform implementation following the specifications in `what.txt`. Built with modern web technologies for real-time collaboration and peer learning.
 # code_editor
+# code_editor
